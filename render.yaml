@@ -16,4 +16,5 @@ services:
 
 databases: # Render PostgreSQL database
   - name: postgresql-aerodynamic-87859
+    plan: free
     ipAllowList: [] # only allow internal connections
