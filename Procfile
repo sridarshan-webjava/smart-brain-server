@@ -1,1 +1,1 @@
-web: cryptic-dusk-74893
+web: npm start
