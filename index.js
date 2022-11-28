@@ -12,12 +12,7 @@ const hashPassword = require("./helper-functions/password").hashPassword;
 
 const db = require("knex")({
   client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "darshanbalaji",
-    password: "",
-    database: "smart-brain",
-  },
+  connection: process.env.DATABASE_URL,
 });
 const port = process.env.PORT || 3001;
 const app = express();
