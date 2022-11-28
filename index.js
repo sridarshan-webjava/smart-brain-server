@@ -19,6 +19,7 @@ const db = require("knex")({
     database: "smart-brain",
   },
 });
+const port = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -39,6 +40,6 @@ app.put("/image", (req, res) => image.postImage(req, res, db));
 
 app.post("/imageurl", (req, res) => image.handleApiCall(req, res));
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("Listening on Port 5000");
 });
