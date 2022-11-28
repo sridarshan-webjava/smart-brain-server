@@ -1,13 +1,16 @@
 const Clarifai = require("clarifai");
 
 const app = new Clarifai.App({
-  apiKey: process.env.CLARIFAI_API_KEY,
+  apiKey: "f7e7dc2708e44d41a06a715d531e3483",
 });
 
 const handleApiCall = (req, res) => {
   app.models
     .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => res.json(data))
+    .then(data => {
+      console.log(data);
+      res.json(data);
+    })
     .catch(err => res.status(400).json("Could not make API Call"));
 };
 

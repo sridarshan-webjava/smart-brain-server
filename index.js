@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require("cors");
+const morgan = require("morgan");
 
 const register = require("./containers/register");
 const image = require("./containers/image");
@@ -10,22 +11,17 @@ const users = require("./containers/users");
 
 const hashPassword = require("./helper-functions/password").hashPassword;
 
-const db = require("knex")({
-  client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "darshanbalaji",
-    password: "",
-    database: "smart-brain",
-  },
-});
+const db = require("./init-db/init-postgres");
+
 const app = express();
 
+app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => users.getUsers(req, res, db));
+// app.get("/", (req, res) => users.getUsers(req, res, db));
+app.get("/", (req, res) => res.send("Server is running"));
 
 app.get("/profile/:id", (req, res) => profile.getUserProfile(req, res, db));
 
@@ -39,6 +35,6 @@ app.put("/image", (req, res) => image.postImage(req, res, db));
 
 app.post("/imageurl", (req, res) => image.handleApiCall(req, res));
 
-app.listen(5000, () => {
-  console.log("Listening on Port 5000");
+app.listen(6000, () => {
+  console.log("Listening on Port 6000");
 });

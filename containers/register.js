@@ -5,7 +5,8 @@ const registerUser = (req, res, db, hashPassword) => {
   }
   hashPassword(password)
     .then(hashedPassword => {
-      return db.transaction(trx => {
+      console.log("Obtained hash is", hashedPassword);
+      db.transaction(trx => {
         trx
           .insert({
             hash: hashedPassword,
@@ -31,7 +32,10 @@ const registerUser = (req, res, db, hashPassword) => {
               .catch(err => res.json("Failed to register"));
           })
           .then(trx.commit)
-          .catch(trx.rollback);
+          .catch(e => {
+            console.log(e);
+            trx.rollback;
+          });
       });
     })
     .catch(err => res.status(400).json("Unable to register user"));
