@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt-nodejs");
+
 async function hashPassword(password) {
   let hashedPassword;
   await bcrypt.hash(password, null, null, (err, hash) => {

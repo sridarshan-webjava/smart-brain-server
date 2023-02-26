@@ -5,8 +5,8 @@ let redisClient;
 (async () => {
   redisClient = redis.createClient({
     socket: {
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
+      host: "localhost",
+      port: 6379,
     },
   });
 
