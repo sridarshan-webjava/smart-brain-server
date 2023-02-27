@@ -13,7 +13,7 @@ const getUserCredentials = (req, db, bcrypt) => {
     .select()
     .from("login")
     .where({ email: email })
-    .then(data => {
+    .then((data) => {
       const match = bcrypt.compareSync(password, data[0].hash);
       console.log(match);
       if (match) {
@@ -21,16 +21,16 @@ const getUserCredentials = (req, db, bcrypt) => {
           .select()
           .from("users")
           .where({ email: email })
-          .then(user => user[0])
-          .catch(err => console.log(err));
+          .then((user) => user[0])
+          .catch((err) => console.log(err));
       } else {
         return Promise.reject("Invalid credentials");
       }
     })
-    .catch(err => Promise.reject(err));
+    .catch((err) => Promise.reject(err));
 };
 
-const getUserIdFromToken = async token => {
+const getUserIdFromToken = async (token) => {
   const id = await redisClient.get(token.slice(7));
   return id;
 };

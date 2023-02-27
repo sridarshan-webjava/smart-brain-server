@@ -4,10 +4,10 @@ jobs:
   install-dependencies:
     description: To install dependencies
     docker:
-      image: cimg/node:19.7.0
-      auth:
-        username: mydockerhub-user
-        password: $DOCKERHUB_PASSWORD
+      - image: cimg/node:19.7.0
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run:
@@ -17,10 +17,10 @@ jobs:
   prettier-check:
     description: To check if code is formatted
     docker:
-      image: cimg/node:19.7.0
-      auth:
-        username: mydockerhub-user
-        password: $DOCKERHUB_PASSWORD
+      - image: cimg/node:19.7.0
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run:

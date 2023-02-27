@@ -19,17 +19,17 @@ const validateUserCredentials = (email, password, db, bcrypt) => {
     .select()
     .from("login")
     .where({ email: email })
-    .then(data => {
+    .then((data) => {
       return bcrypt.compareSync(password, data[0].hash);
     });
 };
 
-const getUserIdFromToken = async token => {
+const getUserIdFromToken = async (token) => {
   const id = await redisClient.get(token.slice(7));
   return id;
 };
 
-const validateUserAuthToken = token => {
+const validateUserAuthToken = (token) => {
   return getUserIdFromToken(token);
 };
 
@@ -55,11 +55,11 @@ const signInUser = async (req, res, db, bcrypt) => {
     return { token: authorization, ...req.body };
   }
   return validateUserCredentials(email, password, db, bcrypt).then(
-    async areCredentialsValid => {
+    async (areCredentialsValid) => {
       if (!areCredentialsValid) {
         throw new ValidationError("Invalid credentials");
       }
-      return await getUserCredentials(email, db).then(dbResponse => {
+      return await getUserCredentials(email, db).then((dbResponse) => {
         const userData = dbResponse[0];
         console.log(userData);
         const token = createUserSession(userData.email, userData.id);

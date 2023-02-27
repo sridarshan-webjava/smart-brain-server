@@ -4,7 +4,7 @@ const getUserProfile = (req, res, db) => {
     .select()
     .from("users")
     .where({ id })
-    .then(resp => {
+    .then((resp) => {
       if (resp.length !== 0) {
         return resp[0];
         // res.json(resp[0]);

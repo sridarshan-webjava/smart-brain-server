@@ -2,7 +2,7 @@ const getUsers = (req, res, db) => {
   return db
     .select()
     .from("users")
-    .then(data => {
+    .then((data) => {
       if (data.length) {
         return data;
         // res.json(data);
