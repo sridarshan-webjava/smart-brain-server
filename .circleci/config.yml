@@ -1,0 +1,36 @@
+version: 2.1
+
+jobs:
+  install-dependencies:
+    description: To install dependencies
+    docker:
+      image: cimg/node:19.7.0
+      auth:
+        username: mydockerhub-user
+        password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm install
+
+  prettier-check:
+    description: To check if code is formatted
+    docker:
+      image: cimg/node:19.7.0
+      auth:
+        username: mydockerhub-user
+        password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - run:
+          name: Prettier formatting
+          command: npx prettier --check
+
+workflows:
+  smart-brain-workflow:
+    jobs:
+      - install-dependencies
+      - prettier-check:
+          requires:
+            - install-dependencies

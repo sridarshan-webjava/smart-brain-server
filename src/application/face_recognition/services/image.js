@@ -1,18 +1,18 @@
 const Clarifai = require("clarifai");
 
 const app = new Clarifai.App({
-  apiKey: "f7e7dc2708e44d41a06a715d531e3483",
+  apiKey: process.env.CLARIFAI_API_KEY,
 });
 
 const handleApiCall = () => {
   return app.models
     .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
-    .then(data => {
+    .then((data) => {
       console.log(data);
       // res.json(data);
       return data;
     })
-    .catch(err => {
+    .catch((err) => {
       throw new Error(err);
     });
 };
@@ -23,7 +23,7 @@ const postImage = (req, res, db) => {
     .where({ id })
     .increment("entries", 1)
     .returning("entries")
-    .then(resp => {
+    .then((resp) => {
       if (resp.length !== 0) {
         // res.json(Number(resp[0]));
         return Number(resp[0]);
